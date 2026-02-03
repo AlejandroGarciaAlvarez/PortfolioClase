@@ -135,11 +135,11 @@ let menuOpen = false;
 const closeMenu = () => {
   menuOpen = false;
   mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-  mobileMenu.classList.remove('opacity-100');
+  mobileMenu.classList.remove('opacity-100', 'flex');
   menuToggle.setAttribute('aria-expanded', 'false');
   body.classList.remove('overflow-hidden');
   menuIcon?.classList.remove('opacity-0', 'scale-75');
-  menuIcon?.classList.add('opacity-100');
+  menuIcon?.classList.add('opacity-100', 'scale-100');
   menuIconClose?.classList.add('opacity-0', 'scale-75');
   menuIconClose?.classList.remove('opacity-100', 'scale-100');
 };
@@ -147,7 +147,7 @@ const closeMenu = () => {
 const openMenu = () => {
   menuOpen = true;
   mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-  mobileMenu.classList.add('opacity-100');
+  mobileMenu.classList.add('opacity-100', 'flex');
   menuToggle.setAttribute('aria-expanded', 'true');
   body.classList.add('overflow-hidden');
   menuIcon?.classList.add('opacity-0', 'scale-75');
@@ -159,10 +159,17 @@ menuToggle?.addEventListener('click', () => {
   if (menuOpen) closeMenu(); else openMenu();
 });
 
-mobileLinks.forEach((link) => link.addEventListener('click', closeMenu));
+// Close menu on mobile link tap or tapping the overlay background
 mobileMenu?.addEventListener('click', (e) => {
-  // Close when tapping outside the nav links (overlay area)
-  if (e.target === mobileMenu) closeMenu();
+  const clickedLink = e.target.closest('.mobile-link');
+  if (clickedLink || e.target === mobileMenu) {
+    closeMenu();
+  }
+});
+
+// Ensure menu closes after hash navigation (e.g., tapping Home)
+window.addEventListener('hashchange', () => {
+  if (menuOpen) closeMenu();
 });
 
 window.addEventListener('scroll', () => {
