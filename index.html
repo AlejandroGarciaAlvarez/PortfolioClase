@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Experiencias Inmersivas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            primary: { DEFAULT: '#1c1917', dark: '#e4e4e7' },
+            secondary: { DEFAULT: '#4b5563', dark: '#a1a1aa' },
+            background: { DEFAULT: '#F4F2EE', dark: '#09090b' },
+            surface: { DEFAULT: '#FFFFFF', dark: '#18181b' },
+            border: { DEFAULT: '#e7e5e4', dark: '#27272a' },
+            accent: { DEFAULT: '#ea580c' },
+            tech: {
+              angular: '#dd0031',
+              spring: '#6db33f',
+              react: '#61dafb',
+              java: '#f89820',
+              python: '#3776ab',
+              mysql: '#00618a',
+            },
+          },
+          boxShadow: {
+            glow: '0 0 45px rgba(72,224,228,0.25)',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-background text-primary dark:bg-background-dark dark:text-primary-dark font-body selection:bg-accent/30 selection:text-primary">
+  <canvas id="bg-canvas" class="fixed inset-0 -z-10 pointer-events-none"></canvas>
+  <div class="fixed inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(234,88,12,0.06),transparent_40%),radial-gradient(circle_at_82%_8%,rgba(132,204,22,0.05),transparent_35%),radial-gradient(circle_at_50%_82%,rgba(59,130,246,0.05),transparent_40%)] pointer-events-none"></div>
+  <div class="fixed inset-0 pointer-events-none opacity-40 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC4wNSIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiBmaWxsPSIjMDAwMCIgZmlsdGVyPSJ1cmwoI24pIiBvcGFjaXR5PSIwLjA1Ii8+PC9zdmc+')]"></div>
+
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-30 transition duration-500 ease-out">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-6 py-3 flex items-center justify-between gap-3 md:gap-6">
+      <a href="#home" class="text-lg font-display font-semibold text-primary dark:text-primary-dark tracking-tight transition transform hover:scale-105 hover:text-accent">AG</a>
+      <div class="flex items-center gap-3 md:gap-5">
+        <ul class="hidden md:flex items-center gap-4 text-xs md:text-sm uppercase tracking-[0.18em] text-secondary dark:text-secondary-dark">
+          <li><a class="nav-link relative pb-1 transition hover:text-accent" href="#home" data-i18n="nav.home">Home<span class="nav-underline"></span></a></li>
+          <li><a class="nav-link relative pb-1 transition hover:text-accent" href="#proyectos" data-i18n="nav.projects">Proyectos<span class="nav-underline"></span></a></li>
+          <li><a class="nav-link relative pb-1 transition hover:text-accent" href="#sobre" data-i18n="nav.about">Sobre mí<span class="nav-underline"></span></a></li>
+          <li><a class="nav-link relative pb-1 transition hover:text-accent" href="#contacto" data-i18n="nav.contact">Contacto<span class="nav-underline"></span></a></li>
+        </ul>
+
+        <div class="hidden md:flex items-center gap-4">
+          <button id="themeToggle" class="w-10 h-10 rounded-full border border-border/60 dark:border-border-dark/60 bg-surface/70 dark:bg-surface-dark/70 backdrop-blur-md text-primary dark:text-primary-dark text-xs font-semibold hover:border-accent transition">Day</button>
+          <button id="langToggle" class="w-10 h-10 rounded-full border border-border/60 dark:border-border-dark/60 bg-surface/70 dark:bg-surface-dark/70 backdrop-blur-md text-primary dark:text-primary-dark text-xs font-semibold hover:border-accent transition">ES</button>
+        </div>
+
+        <div class="flex md:hidden items-center gap-2">
+          <button id="themeToggleMobile" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full border border-border/60 dark:border-border-dark/60 bg-surface/80 dark:bg-surface-dark/70 backdrop-blur-md text-primary dark:text-primary-dark text-xs font-semibold hover:border-accent transition" aria-label="Cambiar tema">Day</button>
+          <button id="langToggleMobile" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full border border-border/60 dark:border-border-dark/60 bg-surface/80 dark:bg-surface-dark/70 backdrop-blur-md text-primary dark:text-primary-dark text-xs font-semibold hover:border-accent transition" aria-label="Cambiar idioma">ES</button>
+          <button id="menuToggle" aria-label="Abrir menú" aria-expanded="false" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full border border-white/15 bg-white/15 dark:border-border-dark/70 dark:bg-surface-dark/80 backdrop-blur-md flex items-center justify-center text-white relative">
+            <span class="menu-icon block w-5 h-[2px] bg-white transition-all duration-200 before:content-[''] before:block before:absolute before:w-5 before:h-[2px] before:bg-white before:-translate-y-2 before:transition-all before:duration-200 after:content-[''] after:block after:absolute after:w-5 after:h-[2px] after:bg-white after:translate-y-2 after:transition-all after:duration-200"></span>
+            <span class="menu-icon-close absolute inset-0 flex items-center justify-center text-lg font-semibold opacity-0 scale-75 transition duration-200">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="fixed inset-0 z-40 bg-background/95 dark:bg-background-dark/95 backdrop-blur-xl text-primary dark:text-primary-dark flex flex-col items-center justify-center gap-8 px-6 py-12 text-3xl sm:text-4xl font-display opacity-0 pointer-events-none transition duration-300 ease-out">
+      <a class="mobile-link hover:text-accent" href="#home" data-i18n="nav.home">Home</a>
+      <a class="mobile-link hover:text-accent" href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+      <a class="mobile-link hover:text-accent" href="#sobre" data-i18n="nav.about">Sobre mí</a>
+      <a class="mobile-link hover:text-accent" href="#contacto" data-i18n="nav.contact">Contacto</a>
+    </div>
+  </nav>
+
+  <main class="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-6 lg:px-8 py-12 sm:py-16 space-y-14 sm:space-y-16">
+    <header id="home" class="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-amber-500" aria-hidden="true"></div>
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.26em] text-secondary dark:text-secondary-dark">Creative Full Stack Developer</p>
+          <h1 class="text-3xl md:text-4xl font-display text-primary dark:text-primary-dark leading-tight">Alejandro García Álvarez</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-secondary dark:text-secondary-dark">
+        <span class="h-px w-12 bg-border dark:bg-border-dark"></span>
+        <span>Disponible · Freelance 2026</span>
+      </div>
+    </header>
+
+    <section class="space-y-6" data-animate>
+      <p class="text-base md:text-lg text-secondary dark:text-secondary-dark" data-i18n="hero.lead">Apasionado por la tecnología y el desarrollo multiplataforma. Creo experiencias digitales robustas: backend con Java/Spring Boot, frontends interactivos con Angular y entornos 3D con Unity.</p>
+      <h2 class="text-4xl md:text-6xl lg:text-7xl font-display text-primary dark:text-primary-dark leading-tight break-words" data-i18n="hero.title">Experiences engineered<br class="hidden sm:block"/> for performance & feel.</h2>
+      <div class="flex flex-wrap gap-4">
+        <a href="#proyectos" class="px-5 py-3 rounded-full bg-accent text-white font-semibold shadow-lg shadow-accent/30 hover:-translate-y-0.5 transition-transform" data-i18n="hero.ctaProjects">Ver proyectos</a>
+        <a href="#contacto" class="px-5 py-3 rounded-full border border-border dark:border-border-dark text-primary dark:text-primary-dark hover:border-accent hover:text-accent transition" data-i18n="hero.ctaContact">Escríbeme</a>
+      </div>
+    </section>
+
+    <section id="sobre" class="space-y-6" data-animate>
+      <div class="flex items-center gap-3">
+        <span class="h-px w-10 bg-accent"></span>
+        <h3 class="text-lg font-display text-primary dark:text-primary-dark" data-i18n="about.title">Sobre mí</h3>
+      </div>
+      <p class="text-secondary dark:text-secondary-dark max-w-3xl" data-i18n="about.body">Creative developer con base en Madrid. Formándome en Instituto Nebrija (2024-Present) y egresado del Colegio Virgen de Atocha. Me mueven las experiencias bien pensadas: arquitectura limpia, interacción fluida y entregables que respetan negocio. Soft skills: trabajo en equipo, empatía y adaptabilidad.</p>
+    </section>
+
+    <section id="tech" class="space-y-6" data-animate>
+      <div class="flex items-center gap-3">
+        <span class="h-px w-10 bg-accent"></span>
+        <h3 class="text-lg font-display text-primary dark:text-primary-dark" data-i18n="tech.title">Tech Glow Stack</h3>
+      </div>
+      <div class="flex flex-wrap gap-4 items-center">
+        <div class="group flex items-center gap-2 rounded-full px-4 py-2 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark transition hover:-translate-y-0.5">
+          <svg class="w-6 h-6 text-neutral-500 transition group-hover:text-tech-spring group-hover:drop-shadow-[0_0_12px_rgba(109,179,63,0.7)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.9 6.6c.4 1.1.2 2.4-.5 3.4-1.3 2-4.3 3.8-7.6 3.7-.7 0-1.4-.1-2-.3.4.3.9.5 1.4.6 2.6.7 5.6-.3 7.9-2.2-1.8 2.4-4.9 4-8.1 3.9-1.6 0-3.1-.4-4.3-1.2C4 13.3 3 10 4.7 7.4c.5-.7 1.1-1.2 1.8-1.6-.3.5-.5 1.1-.6 1.7-.3 2.1 1 4.1 2.9 5 .8.4 1.7.5 2.7.5 2.1 0 4.4-.7 5.8-2.3 1.2-1.2 1.4-2.6.6-4.1Z"/></svg>
+          <span class="text-sm tracking-wide text-secondary dark:text-secondary-dark transition group-hover:text-primary dark:group-hover:text-primary-dark">Spring Boot · Java</span>
+        </div>
+        <div class="group flex items-center gap-2 rounded-full px-4 py-2 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark transition hover:-translate-y-0.5">
+          <svg class="w-6 h-6 text-neutral-500 transition group-hover:text-tech-angular group-hover:drop-shadow-[0_0_12px_rgba(221,0,49,0.7)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 2.5 6.5 4 18l8 4 8-4 1.5-11.5L12 2Zm0 3.7 5.2 2.3-.8 6.7L12 18.3l-4.4-3.6-.8-6.7L12 5.7Zm0 2.3-2.6 6h1.6l.5-1.2h1.9l.5 1.2h1.6L12 8Z"/></svg>
+          <span class="text-sm tracking-wide text-secondary dark:text-secondary-dark transition group-hover:text-primary dark:group-hover:text-primary-dark">Angular</span>
+        </div>
+        <div class="group flex items-center gap-2 rounded-full px-4 py-2 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark transition hover:-translate-y-0.5">
+          <svg class="w-6 h-6 text-neutral-500 transition group-hover:text-tech-python group-hover:drop-shadow-[0_0_12px_rgba(55,118,171,0.7)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.6 2c-4.2 0-4.5 1.8-4.5 1.8V6h4.6v.7H5.2S2 6.5 2 10.8c0 4.2 3.2 4 3.2 4h1.9v-2.7s-.1-3.2 3.1-3.2h3.6s2.9.1 2.9-2.8V4.9S16.7 2 11.6 2Zm-2.5 2.6c.5 0 .9.4.9.9s-.4.9-.9.9a.9.9 0 0 1 0-1.8Zm3.3 17.4c4.2 0 4.5-1.8 4.5-1.8V18h-4.6v-.7h6.5s3.2.2 3.2-4.1c0-4.2-3.2-4-3.2-4h-1.9v2.7s.1 3.2-3.1 3.2h-3.6s-2.9-.1-2.9 2.8v1.2s.1 2.9 5.1 2.9Zm2.5-2.6c-.5 0-.9-.4-.9-.9s.4-.9.9-.9a.9.9 0 0 1 0 1.8Z"/></svg>
+          <span class="text-sm tracking-wide text-secondary dark:text-secondary-dark transition group-hover:text-primary dark:group-hover:text-primary-dark">Python</span>
+        </div>
+        <div class="group flex items-center gap-2 rounded-full px-4 py-2 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark transition hover:-translate-y-0.5">
+          <svg class="w-6 h-6 text-neutral-500 transition group-hover:text-tech-mysql group-hover:drop-shadow-[0_0_12px_rgba(0,97,138,0.7)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 3.5c1.4 0 2.5 1.1 2.5 2.4 0 1.3-1.1 2.4-2.5 2.4C5.1 8.3 4 7.2 4 5.9 4 4.6 5.1 3.5 6.5 3.5Zm6.4 0c1.4 0 2.5 1.1 2.5 2.4 0 1.3-1.1 2.4-2.5 2.4-1.4 0-2.5-1.1-2.5-2.4 0-1.3 1.1-2.4 2.5-2.4Zm4.7 8.6c2.1 0 3.8 1.6 3.8 3.6 0 2-1.7 3.6-3.8 3.6-2.1 0-3.8-1.6-3.8-3.6 0-2 1.7-3.6 3.8-3.6Zm-6.9-.5c1.4 0 2.6 1.3 2.6 2.8 0 1.5-1.2 2.7-2.6 2.7-1.5 0-2.6-1.2-2.6-2.7 0-1.5 1.2-2.8 2.6-2.8Zm-5.6 1.5c1.4 0 2.5 1.1 2.5 2.4 0 1.3-1.1 2.4-2.5 2.4-1.4 0-2.5-1.1-2.5-2.4 0-1.3 1.1-2.4 2.5-2.4Z"/></svg>
+          <span class="text-sm tracking-wide text-secondary dark:text-secondary-dark transition group-hover:text-primary dark:group-hover:text-primary-dark">SQL · MySQL</span>
+        </div>
+        <div class="group flex items-center gap-2 rounded-full px-4 py-2 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark transition hover:-translate-y-0.5">
+          <svg class="w-6 h-6 text-neutral-500 transition group-hover:text-accent group-hover:drop-shadow-[0_0_12px_rgba(234,88,12,0.6)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3h4l1 2h4l1-2h4l-2 6 2 6h-4l-1 2h-4l-1-2H5l2-6-2-6Zm5.2 6 .8 2-.8 2h3.6l-.8-2 .8-2H10.2Z"/></svg>
+          <span class="text-sm tracking-wide text-secondary dark:text-secondary-dark transition group-hover:text-primary dark:group-hover:text-primary-dark">Unity · C#</span>
+        </div>
+        <div class="group flex items-center gap-2 rounded-full px-4 py-2 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark transition hover:-translate-y-0.5">
+          <svg class="w-6 h-6 text-neutral-500 transition group-hover:text-primary group-hover:drop-shadow-[0_0_12px_rgba(28,25,23,0.6)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5 1.8 6v12l10.2 5.5L22.2 18V6L12 .5Zm0 2.2 7.7 4.2v2.4l-3.9 2.1L12 8.8 8.3 11 4.4 9.3V6.9L12 2.7Zm-8.4 9.3 3.9 2.1v4.2l-3.9-2.1v-4.2Zm6 3.2 2.4 1.3 2.4-1.3v4.3l-2.4 1.3-2.4-1.3v-4.3Zm9 1.1-3.9 2.1v-4.2l3.9-2.1v4.2Z"/></svg>
+          <span class="text-sm tracking-wide text-secondary dark:text-secondary-dark transition group-hover:text-primary dark:group-hover:text-primary-dark">Git · GitHub</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="space-y-8" data-animate>
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="h-px w-10 bg-accent"></span>
+        <h3 class="text-lg font-display text-primary dark:text-primary-dark" data-i18n="projects.title">Proyectos Cinematic</h3>
+        <span class="px-3 py-1 rounded-full text-xs uppercase tracking-[0.2em] bg-surface dark:bg-surface-dark border border-border dark:border-border-dark text-secondary dark:text-secondary-dark">Experiencias, data y motion</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <article data-tilt class="group relative col-span-1 md:col-span-2 overflow-hidden rounded-2xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark transition duration-700 ease-in-out will-change-transform">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-br from-accent/10 via-transparent to-emerald-400/10 pointer-events-none"></div>
+          <div class="tilt-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none mix-blend-screen"></div>
+          <div class="p-5 flex items-center justify-between">
+            <h4 class="text-2xl md:text-3xl font-display text-primary dark:text-primary-dark">Enterprise CRM Full Stack</h4>
+            <span class="text-xs uppercase tracking-[0.2em] text-secondary dark:text-secondary-dark">Full Stack</span>
+          </div>
+          <div class="grid md:grid-cols-5 gap-4 px-5 pb-5">
+            <div class="relative md:col-span-3 h-56 rounded-xl overflow-hidden border border-border dark:border-border-dark">
+              <div class="absolute inset-0 bg-gradient-to-t from-background/80 dark:from-background-dark/80 to-transparent opacity-60 group-hover:opacity-30 transition duration-500"></div>
+              <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80" alt="Enterprise CRM Full Stack" class="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition duration-700" />
+              <div class="absolute top-3 left-3 flex gap-2">
+                <span class="px-2 py-1 rounded-full text-[11px] bg-black/60 text-white uppercase tracking-[0.15em]">Scalable</span>
+                <span class="px-2 py-1 rounded-full text-[11px] bg-white/80 text-primary uppercase tracking-[0.15em]">B2B</span>
+              </div>
+            </div>
+            <div class="md:col-span-2 space-y-4 flex flex-col justify-between">
+              <p class="text-secondary dark:text-secondary-dark leading-relaxed">Suite CRM escalable: microservicios Spring Boot, panel Angular con data en vivo y seguridad modular para equipos de ventas y soporte.</p>
+              <div class="flex flex-wrap gap-2 text-xs text-secondary dark:text-secondary-dark">
+                <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Spring Boot</span>
+                <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Angular</span>
+                <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">MySQL</span>
+              </div>
+              <div class="flex gap-2">
+                <a href="https://github.com/AlejandroGarciaAlvarez/CRM_PROYECTO" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border dark:border-border-dark text-sm text-primary dark:text-primary-dark hover:border-accent hover:text-accent transition">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.12.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.41.97.1-.75.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.69 0-1.26.45-2.29 1.2-3.09-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.59.23 2.76.11 3.05.75.8 1.2 1.83 1.2 3.1 0 4.42-2.7 5.4-5.28 5.68.42.36.8 1.08.8 2.17 0 1.56-.02 2.82-.02 3.2 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+                  <span>GitHub</span>
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-white text-sm shadow-lg shadow-accent/30 hover:-translate-y-0.5 transition">Live</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article data-tilt class="group relative col-span-1 overflow-hidden rounded-2xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark transition duration-700 ease-in-out will-change-transform">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-tr from-accent/12 via-transparent to-sky-400/10 pointer-events-none"></div>
+          <div class="tilt-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none mix-blend-screen"></div>
+          <div class="p-5 flex items-center justify-between">
+            <h4 class="text-2xl font-display text-primary dark:text-primary-dark">Unity 3D Experience</h4>
+            <span class="text-xs uppercase tracking-[0.2em] text-secondary dark:text-secondary-dark">3D</span>
+          </div>
+          <div class="space-y-4 px-5 pb-5">
+            <div class="relative h-40 rounded-xl overflow-hidden border border-border dark:border-border-dark">
+              <div class="absolute inset-0 bg-gradient-to-t from-background/80 dark:from-background-dark/80 to-transparent opacity-60 group-hover:opacity-30 transition duration-500"></div>
+              <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1400&q=80" alt="Unity 3D Experience" class="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition duration-700" />
+              <div class="absolute top-3 left-3 flex gap-2">
+                <span class="px-2 py-1 rounded-full text-[11px] bg-black/60 text-white uppercase tracking-[0.15em]">Realtime</span>
+                <span class="px-2 py-1 rounded-full text-[11px] bg-white/80 text-primary uppercase tracking-[0.15em]">Immersive</span>
+              </div>
+            </div>
+            <p class="text-secondary dark:text-secondary-dark leading-relaxed">Experiencia 3D interactiva en Unity: ambientación, partículas y triggers dinámicos para storytelling espacial.</p>
+            <div class="flex flex-wrap gap-2 text-xs text-secondary dark:text-secondary-dark">
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Unity</span>
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">C#</span>
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Shaders</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="https://github.com" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border dark:border-border-dark text-sm text-primary dark:text-primary-dark hover:border-accent hover:text-accent transition">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.12.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.41.97.1-.75.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.69 0-1.26.45-2.29 1.2-3.09-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.59.23 2.76.11 3.05.75.8 1.2 1.83 1.2 3.1 0 4.42-2.7 5.4-5.28 5.68.42.36.8 1.08.8 2.17 0 1.56-.02 2.82-.02 3.2 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+                <span>GitHub</span>
+              </a>
+              <a href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-white text-sm shadow-lg shadow-accent/30 hover:-translate-y-0.5 transition">Live</a>
+            </div>
+          </div>
+        </article>
+
+        <article data-tilt class="group relative col-span-1 md:col-span-1 overflow-hidden rounded-2xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark transition duration-700 ease-in-out will-change-transform">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-bl from-accent/12 via-transparent to-lime-400/12 pointer-events-none"></div>
+          <div class="tilt-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none mix-blend-screen"></div>
+          <div class="p-5 flex items-center justify-between">
+            <h4 class="text-2xl font-display text-primary dark:text-primary-dark">Event Web Platform</h4>
+            <span class="text-xs uppercase tracking-[0.2em] text-secondary dark:text-secondary-dark">Web</span>
+          </div>
+          <div class="space-y-4 px-5 pb-5">
+            <div class="relative h-40 rounded-xl overflow-hidden border border-border dark:border-border-dark">
+              <div class="absolute inset-0 bg-gradient-to-t from-background/80 dark:from-background-dark/80 to-transparent opacity-60 group-hover:opacity-30 transition duration-500"></div>
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80" alt="Event Web Platform" class="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition duration-700" />
+              <div class="absolute top-3 left-3 flex gap-2">
+                <span class="px-2 py-1 rounded-full text-[11px] bg-black/60 text-white uppercase tracking-[0.15em]">Booking</span>
+                <span class="px-2 py-1 rounded-full text-[11px] bg-white/80 text-primary uppercase tracking-[0.15em]">CMS</span>
+              </div>
+            </div>
+            <p class="text-secondary dark:text-secondary-dark leading-relaxed">Plataforma web para gestión de eventos: landing dinámica, inscripciones, pasarela de pagos y panel de administración.</p>
+            <div class="flex flex-wrap gap-2 text-xs text-secondary dark:text-secondary-dark">
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Angular</span>
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Payments</span>
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Deploy</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="https://github.com" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border dark:border-border-dark text-sm text-primary dark:text-primary-dark hover:border-accent hover:text-accent transition">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.12.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.41.97.1-.75.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.69 0-1.26.45-2.29 1.2-3.09-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.59.23 2.76.11 3.05.75.8 1.2 1.83 1.2 3.1 0 4.42-2.7 5.4-5.28 5.68.42.36.8 1.08.8 2.17 0 1.56-.02 2.82-.02 3.2 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+                <span>GitHub</span>
+              </a>
+              <a href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-white text-sm shadow-lg shadow-accent/30 hover:-translate-y-0.5 transition">Live</a>
+            </div>
+          </div>
+        </article>
+
+        <article data-tilt class="group relative col-span-1 md:col-span-1 overflow-hidden rounded-2xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark transition duration-700 ease-in-out will-change-transform">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-b from-accent/10 via-transparent to-amber-300/12 pointer-events-none"></div>
+          <div class="tilt-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none mix-blend-screen"></div>
+          <div class="p-5 flex items-center justify-between">
+            <h4 class="text-2xl font-display text-primary dark:text-primary-dark">Hardware Architecture</h4>
+            <span class="text-xs uppercase tracking-[0.2em] text-secondary dark:text-secondary-dark">Visualization</span>
+          </div>
+          <div class="space-y-4 px-5 pb-5">
+            <div class="relative h-40 rounded-xl overflow-hidden border border-border dark:border-border-dark">
+              <div class="absolute inset-0 bg-gradient-to-t from-background/80 dark:from-background-dark/80 to-transparent opacity-60 group-hover:opacity-30 transition duration-500"></div>
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80" alt="Hardware Architecture" class="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition duration-700" />
+              <div class="absolute top-3 left-3 flex gap-2">
+                <span class="px-2 py-1 rounded-full text-[11px] bg-black/60 text-white uppercase tracking-[0.15em]">Blueprint</span>
+                <span class="px-2 py-1 rounded-full text-[11px] bg-white/80 text-primary uppercase tracking-[0.15em]">3D View</span>
+              </div>
+            </div>
+            <p class="text-secondary dark:text-secondary-dark leading-relaxed">Visualización técnica de hardware: despiece interactivo, callouts y capas para entender cada componente.</p>
+            <div class="flex flex-wrap gap-2 text-xs text-secondary dark:text-secondary-dark">
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Three.js</span>
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">UI Systems</span>
+              <span class="px-3 py-1 rounded-full bg-surface dark:bg-surface-dark border border-border dark:border-border-dark">Tech Writing</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="https://github.com" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border dark:border-border-dark text-sm text-primary dark:text-primary-dark hover:border-accent hover:text-accent transition">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.12.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.41.97.1-.75.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.69 0-1.26.45-2.29 1.2-3.09-.12-.29-.52-1.46.11-3.05 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.63 1.59.23 2.76.11 3.05.75.8 1.2 1.83 1.2 3.1 0 4.42-2.7 5.4-5.28 5.68.42.36.8 1.08.8 2.17 0 1.56-.02 2.82-.02 3.2 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+                <span>GitHub</span>
+              </a>
+              <a href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-white text-sm shadow-lg shadow-accent/30 hover:-translate-y-0.5 transition">Live</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto" class="space-y-6" data-animate>
+      <div class="flex items-center gap-3">
+        <span class="h-px w-10 bg-accent"></span>
+        <h3 class="text-lg font-display text-primary dark:text-primary-dark" data-i18n="contact.title">Contacto</h3>
+      </div>
+      <p class="text-secondary dark:text-secondary-dark max-w-2xl" data-i18n="contact.body">Listo para diseñar experiencias robustas: productos full stack, frontends con carácter y 3D interactivo para marcas que quieren diferenciarse.</p>
+      <div class="flex flex-wrap gap-3">
+        <a class="px-5 py-3 rounded-full bg-accent text-white font-semibold shadow-lg shadow-accent/30 hover:-translate-y-0.5 transition" href="mailto:aalejandrogaralvarez@gmail.com" data-i18n="contact.cta">Enviar correo</a>
+        <a class="px-5 py-3 rounded-full border border-border dark:border-border-dark text-primary dark:text-primary-dark hover:border-accent hover:text-accent transition" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
